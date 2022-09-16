@@ -11,7 +11,7 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_ses_email_identity" "example" {
+resource "aws_ses_email_identity" "welcome" {
   email = "welcome@everyonesacriticapp.com"
 }
 
@@ -28,9 +28,9 @@ resource "aws_cognito_user_pool" "main" {
   }
 
   email_configuration {
-    email_sending_account = "DEVELOPER"
-    from_email_address    = "\"Everyone's a Critic\"<welcome@everyonesacriticapp.com>"
-    source_arn            = "arn:aws:ses:us-west-1:081924037451:identity/welcome@everyonesacriticapp.com"
+    email_sending_account = "COGNITO_DEFAULT"
+    from_email_address    = "\"Everyone's a Critic\" <welcome@everyonesacriticapp.com>"
+    source_arn            = aws_ses_email_identity.welcome.arn
   }
 
   password_policy {

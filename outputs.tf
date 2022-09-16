@@ -1,6 +1,6 @@
-output "congito_pool_id" {
+output "congito_pool_arn" {
   description = "The ARN of the cognito user pool"
-  value       = aws_cognito_user_pool.main.id
+  value       = aws_cognito_user_pool.main.arn
 }
 
 output "client_id" {

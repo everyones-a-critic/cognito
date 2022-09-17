@@ -29,7 +29,6 @@ resource "aws_cognito_user_pool" "main" {
 
   email_configuration {
     email_sending_account = "COGNITO_DEFAULT"
-    from_email_address    = "\"Everyone's a Critic\" <welcome@everyonesacriticapp.com>"
     source_arn            = aws_ses_email_identity.welcome.arn
   }
 

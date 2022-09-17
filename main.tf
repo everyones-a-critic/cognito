@@ -15,6 +15,24 @@ resource "aws_ses_email_identity" "welcome" {
   email = "welcome@everyonesacriticapp.com"
 }
 
+data "aws_iam_policy_document" "main" {
+  statement {
+    actions   = ["SES:SendEmail", "SES:SendRawEmail"]
+    resources = [aws_ses_domain_identity.welcome.arn]
+
+    principals {
+      identifiers = ["email.cognito-idp.amazonaws.com"]
+      type        = "Service"
+    }
+  }
+}
+
+resource "aws_ses_identity_policy" "cognito-access" {
+  identity = aws_ses_domain_identity.welcome.arn
+  name     = "cognito-access"
+  policy   = data.aws_iam_policy_document.main.json
+}
+
 resource "aws_cognito_user_pool" "main" {
   name             = "everyones-a-critic"
   alias_attributes = ["email", "preferred_username"]

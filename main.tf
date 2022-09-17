@@ -18,7 +18,7 @@ resource "aws_ses_email_identity" "welcome" {
 data "aws_iam_policy_document" "main" {
   statement {
     actions   = ["SES:SendEmail", "SES:SendRawEmail"]
-    resources = [aws_ses_domain_identity.welcome.arn]
+    resources = [aws_ses_email_identity.welcome.arn]
 
     principals {
       identifiers = ["email.cognito-idp.amazonaws.com"]
@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "main" {
 }
 
 resource "aws_ses_identity_policy" "cognito-access" {
-  identity = aws_ses_domain_identity.welcome.arn
+  identity = aws_ses_email_identity.welcome.arn
   name     = "cognito-access"
   policy   = data.aws_iam_policy_document.main.json
 }

@@ -35,7 +35,7 @@ resource "aws_ses_identity_policy" "cognito-access" {
 
 resource "aws_cognito_user_pool" "main" {
   name             = "everyones-a-critic"
-  alias_attributes = ["email", "preferred_username"]
+  username_attributes = ["email"]
   auto_verified_attributes = ["email"]
 
   account_recovery_setting {
